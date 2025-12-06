@@ -1,458 +1,458 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOW WARRIOR EMPAYAR | Perkongsian Keuntungan RM30K Bulanan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4C+i3r/v2WkY7n9P/7g2t2k6gE4N2L+7r6PqfV8l2k5zD4f2Fw5A/uB7M7tV7ZtE6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Tetapan Font Global */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Menggunakan warna tema korporat */
-        .color-primary {
-            background-color: #1a202c; /* Deep Navy Blue */
-        }
-        .color-secondary {
-            color: #ecc94b; /* Gold/Yellow Accent */
-        }
-        /* Style untuk jadual kekosongan */
-        .vacancy-table-container {
-            max-height: 400px; /* Hadkan tinggi untuk scroll yang kemas */
-            overflow-y: auto;
-            border-radius: 0.5rem;
-        }
-        /* Style untuk iframe Google Sheet agar responsif */
-        .iframe-container {
-            position: relative;
-            padding-bottom: 168.75%; /* Ditingkatkan 3 kali ganda dari nisbah aspek 16:9 (56.25% x 3) */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOW WARRIOR EMPAYAR | Perkongsian Keuntungan RM30K Bulanan</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4C+i3r/v2WkY7n9P/7g2t2k6gE4N2L+7r6PqfV8l2k5zD4f2Fw5A/uB7M7tV7ZtE6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Tetapan Font Global */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Menggunakan warna tema korporat */
+        .color-primary {
+            background-color: #1a202c; /* Deep Navy Blue */
+        }
+        .color-secondary {
+            color: #ecc94b; /* Gold/Yellow Accent */
+        }
+        /* Style untuk jadual kekosongan */
+        .vacancy-table-container {
+            max-height: 400px; /* Hadkan tinggi untuk scroll yang kemas */
+            overflow-y: auto;
+            border-radius: 0.5rem;
+        }
+        /* Style untuk iframe Google Sheet agar responsif */
+        .iframe-container {
+            position: relative;
+            padding-bottom: 168.75%; /* Ditingkatkan 3 kali ganda dari nisbah aspek 16:9 (56.25% x 3) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
-        /* --- TAMBAHAN: Style untuk Video Slider --- */
-        .slider-container {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-        .slider-container::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
-        }
-        /* Container khas untuk video 16:9 supaya tidak terikut style Google Sheet yang panjang */
-        .video-16-9 {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            background-color: #000;
-            transition: transform 0.3s ease;
-        }
-        .video-16-9:hover {
-            transform: scale(1.02);
-        }
-        /* Style untuk menjadikan video sebagai butang link */
-        .video-16-9 a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            text-decoration: none;
-        }
-        .video-16-9 img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-        .video-16-9:hover img {
-            opacity: 1;
-        }
-        /* Ikon Play di tengah */
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background-color: rgba(220, 38, 38, 0.9); /* Red YouTube color */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.3s, background-color 0.3s;
-        }
-        .video-16-9:hover .play-icon {
-            transform: translate(-50%, -50%) scale(1.1);
-            background-color: #ff0000;
-        }
-    </style>
+        /* --- TAMBAHAN: Style untuk Video Slider --- */
+        .slider-container {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        .slider-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+        /* Container khas untuk video 16:9 supaya tidak terikut style Google Sheet yang panjang */
+        .video-16-9 {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            background-color: #000;
+            transition: transform 0.3s ease;
+        }
+        .video-16-9:hover {
+            transform: scale(1.02);
+        }
+        /* Style untuk menjadikan video sebagai butang link */
+        .video-16-9 a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            text-decoration: none;
+        }
+        .video-16-9 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .video-16-9:hover img {
+            opacity: 1;
+        }
+        /* Ikon Play di tengah */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(220, 38, 38, 0.9); /* Red YouTube color */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .video-16-9:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1.1);
+            background-color: #ff0000;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-gray-900 flex items-center">
-                <i class="fas fa-crown text-yellow-500 mr-2"></i> WOW WARRIOR <span class="text-yellow-600 ml-1">EMPAYAR</span>
-            </h1>
-            <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-lg transition duration-300 shadow-lg hidden md:inline-block">
-                DAFTAR SEKARANG
-            </a>
-        </div>
-    </header>
+        <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+                        <h1 class="text-3xl font-extrabold text-gray-900 flex items-center">
+                <i class="fas fa-crown text-yellow-500 mr-2"></i> WOW WARRIOR <span class="text-yellow-600 ml-1">EMPAYAR</span>
+            </h1>
+            <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-lg transition duration-300 shadow-lg hidden md:inline-block">
+                DAFTAR SEKARANG
+            </a>
+        </div>
+    </header>
 
-    <section class="color-primary text-white py-20 md:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-sm font-semibold uppercase tracking-widest color-secondary mb-3">
-                PELUANG TERHAD!
-            </h2>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
-                SERTAI PERKONGSIAN KEUNTUNGAN WOW WARRIOR EMPAYAR!
-            </h1>
-            <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
-                Modal hanya <span class="font-bold color-secondary">RM50</span> untuk membuka potensi pendapatan pasif sehingga <span class="font-bold color-secondary">RM30,000/Bulan!</span>
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 text-lg rounded-xl transition duration-300 transform hover:scale-105 shadow-2xl">
-                    <i class="fas fa-arrow-right mr-2"></i> KLIK UNTUK SERTAI SEKARANG!
-                </a>
-                <a href="https://t.me/+00OjnNe5MeFhYWI1" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 text-lg rounded-xl transition duration-300 transform hover:scale-105">
-                    <i class="fab fa-telegram-plane mr-2"></i> SERTAI GROUP TELEGRAM
-                </a>
-            </div>
-            <p class="mt-4 text-sm text-gray-400">Kami mencari Rakan Kongsi yang serius menjana pendapatan pasif yang boleh diwarisi.</p>
-        </div>
-    </section>
+        <section class="color-primary text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-sm font-semibold uppercase tracking-widest color-secondary mb-3">
+                PELUANG TERHAD!
+            </h2>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                SERTAI PERKONGSIAN KEUNTUNGAN WOW WARRIOR EMPAYAR!
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
+                Modal hanya <span class="font-bold color-secondary">RM50</span> untuk membuka potensi pendapatan pasif sehingga <span class="font-bold color-secondary">RM30,000/Bulan!</span>
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                                <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 text-lg rounded-xl transition duration-300 transform hover:scale-105 shadow-2xl">
+                    <i class="fas fa-arrow-right mr-2"></i> KLIK UNTUK SERTAI SEKARANG!
+                </a>
+                <a href="https://t.me/+00OjnNe5MeFhYWI1" target="_blank" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 text-lg rounded-xl transition duration-300 transform hover:scale-105">
+                    <i class="fab fa-telegram-plane mr-2"></i> SERTAI GROUP TELEGRAM
+                </a>
+            </div>
+            <p class="mt-4 text-sm text-gray-400">Kami mencari Rakan Kongsi yang serius menjana pendapatan pasif yang boleh diwarisi.</p>
+        </div>
+    </section>
 
-    <section class="py-16 md:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
-                Fokus Empayar & Kelebihan Eksklusif
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
-                    <i class="fas fa-money-bill-wave text-5xl color-secondary mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-3">Perkongsian Keuntungan Berterusan</h3>
-                    <p class="text-gray-600">Matlamat 15,000 penyertaan membuka potensi Perkongsian Keuntungan Bulanan serendah RM15 sehingga mencapai RM30,000. Fokus utama kami adalah menjana pendapatan berulang untuk anda!</p>
-                </div>
-                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
-                    <i class="fas fa-hand-holding-heart text-5xl color-secondary mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-3">Pendapatan Pasif Boleh Diwarisi</h3>
-                    <p class="text-gray-600">Hasil Empayar Wow Warrior anda adalah aset kewangan berharga yang boleh diwariskan kepada keluarga tersayang, menjamin kestabilan kewangan masa depan mereka.</p>
-                </div>
-                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
-                    <i class="fas fa-rocket text-5xl color-secondary mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-3">Pelaburan Permulaan Hanya RM50!</h3>
-                    <p class="text-gray-600">Mulakan perniagaan telco anda sendiri dan sertai perkongsian keuntungan dengan pelaburan permulaan yang sangat minimalis. Peluang besar, risiko rendah.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
+                Fokus Empayar & Kelebihan Eksklusif
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
+                    <i class="fas fa-money-bill-wave text-5xl color-secondary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Perkongsian Keuntungan Berterusan</h3>
+                    <p class="text-gray-600">Matlamat 15,000 penyertaan membuka potensi Perkongsian Keuntungan Bulanan serendah RM15 sehingga mencapai RM30,000. Fokus utama kami adalah menjana pendapatan berulang untuk anda!</p>
+                </div>
+                                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
+                    <i class="fas fa-hand-holding-heart text-5xl color-secondary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Pendapatan Pasif Boleh Diwarisi</h3>
+                    <p class="text-gray-600">Hasil Empayar Wow Warrior anda adalah aset kewangan berharga yang boleh diwariskan kepada keluarga tersayang, menjamin kestabilan kewangan masa depan mereka.</p>
+                </div>
+                                <div class="bg-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border-t-4 border-yellow-500">
+                    <i class="fas fa-rocket text-5xl color-secondary mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Pelaburan Permulaan Hanya RM50!</h3>
+                    <p class="text-gray-600">Mulakan perniagaan telco anda sendiri dan sertai perkongsian keuntungan dengan pelaburan permulaan yang sangat minimalis. Peluang besar, risiko rendah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section class="py-16 md:py-24 color-primary text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-12 color-secondary">
-                <i class="fas fa-video mr-2"></i> Penerangan Video Strategi Wow Warriors
-            </h2>
+        <section class="py-16 md:py-24 color-primary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-12 color-secondary">
+                <i class="fas fa-video mr-2"></i> Penerangan Video Strategi Wow Warriors
+            </h2>
 
-            <div class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 slider-container">
-               
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=oSbEEwY8BV8" target="_blank" title="Tonton Video Pengenalan">
-                            <img src="https://img.youtube.com/vi/oSbEEwY8BV8/hqdefault.jpg" alt="Video Thumbnail 1">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Pengenalan</p>
-                </div>
+                        <div class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 slider-container">
+                
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=oSbEEwY8BV8" target="_blank" title="Tonton Video Pengenalan">
+                            <img src="https://img.youtube.com/vi/oSbEEwY8BV8/hqdefault.jpg" alt="Video Thumbnail 1">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Pengenalan</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=6KtUVR-G6XM" target="_blank" title="Tonton Video Strategi">
-                            <img src="https://img.youtube.com/vi/6KtUVR-G6XM/hqdefault.jpg" alt="Video Thumbnail 2">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Strategi</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=6KtUVR-G6XM" target="_blank" title="Tonton Video Strategi">
+                            <img src="https://img.youtube.com/vi/6KtUVR-G6XM/hqdefault.jpg" alt="Video Thumbnail 2">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Strategi</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=UuY8tabUQCM" target="_blank" title="Tonton Video Aplikasi 4x4">
-                            <img src="https://img.youtube.com/vi/UuY8tabUQCM/hqdefault.jpg" alt="Video Thumbnail 3">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Duplikasi 4x4</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=UuY8tabUQCM" target="_blank" title="Tonton Video Aplikasi 4x4">
+                            <img src="https://img.youtube.com/vi/UuY8tabUQCM/hqdefault.jpg" alt="Video Thumbnail 3">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Duplikasi 4x4</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=FaC9LMUGVno" target="_blank" title="Tonton Cara Sistem Wow Warriors">
-                            <img src="https://img.youtube.com/vi/FaC9LMUGVno/hqdefault.jpg" alt="Video Thumbnail 4">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Automatik 4x4</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=FaC9LMUGVno" target="_blank" title="Tonton Cara Sistem Wow Warriors">
+                            <img src="https://img.youtube.com/vi/FaC9LMUGVno/hqdefault.jpg" alt="Video Thumbnail 4">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Automatik 4x4</p>
+                </div>
                 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=1eIRufh6gH4" target="_blank" title="Tonton Testimoni Pelajar 4x4">
-                            <img src="https://img.youtube.com/vi/1eIRufh6gH4/hqdefault.jpg" alt="Video Thumbnail 5">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Testimoni: Pelajar (4x4)</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=1eIRufh6gH4&t=4s" target="_blank" title="Tonton Bukti Student 4x4">
+                            <img src="https://img.youtube.com/vi/1eIRufh6gH4/hqdefault.jpg" alt="Video Thumbnail 5">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Bukti Student 4x4</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=slvHqshVLEo" target="_blank" title="Tonton Testimoni Pelajar Auto 4x4">
-                            <img src="https://img.youtube.com/vi/slvHqshVLEo/hqdefault.jpg" alt="Video Thumbnail 6">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Testimoni: Pelajar (Auto 4x4)</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=slvHqshVLEo" target="_blank" title="Tonton Auto 4x4 Student">
+                            <img src="https://img.youtube.com/vi/slvHqshVLEo/hqdefault.jpg" alt="Video Thumbnail 6">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Auto 4x4 Student</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=fURjfsOoB4k" target="_blank" title="Tonton Testimoni Suri Rumah">
-                            <img src="https://img.youtube.com/vi/fURjfsOoB4k/hqdefault.jpg" alt="Video Thumbnail 7">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Testimoni: Suri Rumah</p>
-                </div>
-                
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=RKMXs3_E_I8" target="_blank" title="Tonton Kekal Nombor Lama (MNP)">
-                            <img src="https://img.youtube.com/vi/RKMXs3_E_I8/hqdefault.jpg" alt="Video Thumbnail 8">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Kekal Nombor Lama (MNP)</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=fURjfsOoB4k&t=2s" target="_blank" title="Tonton Testimoni Surirumah">
+                            <img src="https://img.youtube.com/vi/fURjfsOoB4k/hqdefault.jpg" alt="Video Thumbnail 7">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Testimoni Surirumah</p>
+                </div>
 
-                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
-                    <div class="video-16-9 cursor-pointer">
-                        <a href="https://www.youtube.com/watch?v=lYEo_eVamF0" target="_blank" title="Tonton Simkad Yang Ada Kontrak">
-                            <img src="https://img.youtube.com/vi/lYEo_eVamF0/hqdefault.jpg" alt="Video Thumbnail 9">
-                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
-                        </a>
-                    </div>
-                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Simkad Ada Kontrak?</p>
-                </div>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=RKMXs3_E_I8" target="_blank" title="Tonton Kekal Nombor Lama MNP">
+                            <img src="https://img.youtube.com/vi/RKMXs3_E_I8/hqdefault.jpg" alt="Video Thumbnail 8">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Kekal Nombor Lama (MNP)</p>
+                </div>
 
-            </div>
-            <p class="text-center text-sm text-gray-400 mt-6">Klik pada video untuk tonton di YouTube.</p>
-        </div>
-    </section>
+                                <div class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 snap-center">
+                    <div class="video-16-9 cursor-pointer">
+                        <a href="https://www.youtube.com/watch?v=lYEo_eVamF0" target="_blank" title="Tonton Simkad Yang Ada Kontrak">
+                            <img src="https://img.youtube.com/vi/lYEo_eVamF0/hqdefault.jpg" alt="Video Thumbnail 9">
+                            <div class="play-icon"><i class="fas fa-play ml-1"></i></div>
+                        </a>
+                    </div>
+                    <p class="text-center mt-2 text-sm font-semibold text-gray-300">Simkad Ada Kontrak</p>
+                </div>
 
-    <section class="py-16 bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-12 color-secondary">
-                <i class="fas fa-shield-alt mr-2"></i> Kelebihan Eksklusif Tone Wow Plus
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="p-4">
-                    <i class="fas fa-hospital-alt text-4xl mb-3 text-red-500"></i>
-                    <p class="font-semibold text-lg">Takaful Kemalangan Diri</p>
-                    <p class="text-sm text-gray-400">PERCUMA sehingga RM30,000</p>
-                </div>
-                <div class="p-4">
-                    <i class="fas fa-heartbeat text-4xl mb-3 text-green-500"></i>
-                    <p class="font-semibold text-lg">Perlindungan Insurans Hayat</p>
-                    <p class="text-sm text-gray-400">PERCUMA sehingga RM4,000</p>
-                </div>
-                <div class="p-4">
-                    <i class="fas fa-gift text-4xl mb-3 text-blue-400"></i>
-                    <p class="font-semibold text-lg">Data & Panggilan Bonus</p>
-                    <p class="text-sm text-gray-400">Bonus Tambahan PERCUMA</p>
-                </div>
-                <div class="p-4">
-                    <i class="fas fa-trophy text-4xl mb-3 text-yellow-500"></i>
-                    <p class="font-semibold text-lg">Insentif & Ganjaran</p>
-                    <p class="text-sm text-gray-400">Ganjaran menarik dari rangkaian aktif</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </div>
+            <p class="text-center text-sm text-gray-400 mt-6">Klik pada video untuk tonton di YouTube.</p>
+        </div>
+    </section>
 
-    <section class="py-16 md:py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
-                <i class="fas fa-wifi mr-2"></i> Pelan Data LINDUNG PRO (TDS35)
-            </h2>
-            <p class="text-center text-xl text-gray-600 mb-10">
-                Berbaloi dan Praktikal untuk Gaya Hidup Moden Anda.
-            </p>
+        <section class="py-16 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-12 color-secondary">
+                <i class="fas fa-shield-alt mr-2"></i> Kelebihan Eksklusif Tone Wow Plus
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                                <div class="p-4">
+                    <i class="fas fa-hospital-alt text-4xl mb-3 text-red-500"></i>
+                    <p class="font-semibold text-lg">Takaful Kemalangan Diri</p>
+                    <p class="text-sm text-gray-400">PERCUMA sehingga RM30,000</p>
+                </div>
+                                <div class="p-4">
+                    <i class="fas fa-heartbeat text-4xl mb-3 text-green-500"></i>
+                    <p class="font-semibold text-lg">Perlindungan Insurans Hayat</p>
+                    <p class="text-sm text-gray-400">PERCUMA sehingga RM4,000</p>
+                </div>
+                                <div class="p-4">
+                    <i class="fas fa-gift text-4xl mb-3 text-blue-400"></i>
+                    <p class="font-semibold text-lg">Data & Panggilan Bonus</p>
+                    <p class="text-sm text-gray-400">Bonus Tambahan PERCUMA</p>
+                </div>
+                                <div class="p-4">
+                    <i class="fas fa-trophy text-4xl mb-3 text-yellow-500"></i>
+                    <p class="font-semibold text-lg">Insentif & Ganjaran</p>
+                    <p class="text-sm text-gray-400">Ganjaran menarik dari rangkaian aktif</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="max-w-lg mx-auto bg-gray-900 text-white rounded-3xl shadow-2xl p-8 border-b-8 border-yellow-500">
-                <div class="text-center">
-                    <p class="text-4xl font-bold color-secondary mb-2">TDS35</p>
-                    <p class="text-2xl font-light mb-6">Pelan Utama Rakan Kongsi</p>
-                </div>
-                <ul class="space-y-4 text-lg">
-                    <li class="flex items-center justify-between py-2 border-b border-gray-700">
-                        <span class="flex items-center"><i class="fas fa-bolt mr-3 text-yellow-500"></i> Internet Semua Akses (Hi-Speed)</span>
-                        <span class="font-bold text-2xl">70GB</span>
-                    </li>
-                    <li class="flex items-center justify-between py-2 border-b border-gray-700">
-                        <span class="flex items-center"><i class="fas fa-hotspot mr-3 text-yellow-500"></i> Hotspot</span>
-                        <span class="font-bold text-2xl">5GB</span>
-                    </li>
-                    <li class="flex items-center justify-between py-2">
-                        <span class="flex items-center"><i class="fas fa-phone-volume mr-3 text-yellow-500"></i> Panggilan Suara</span>
-                        <span class="font-bold text-2xl text-green-400">UNLIMITED</span>
-                    </li>
-                </ul>
-                <a href="https://shopee.com.my/product/1375441/58101063481/" target="_blank" class="block mt-8 text-center bg-yellow-500 text-gray-900 font-bold py-3 rounded-xl hover:bg-yellow-600 transition duration-300">
-                    BELI SIM DI SHOPEE
-                </a>
-            </div>
-        </div>
-    </section>
+        <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
+                <i class="fas fa-wifi mr-2"></i> Pelan Data LINDUNG PRO (TDS35)
+            </h2>
+            <p class="text-center text-xl text-gray-600 mb-10">
+                Berbaloi dan Praktikal untuk Gaya Hidup Moden Anda.
+            </p>
 
-    <section class="py-16 md:py-24 color-primary text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-4xl font-extrabold mb-8 color-secondary">
-                        <i class="fas fa-list-ol mr-2"></i> Senarai Kekosongan Keuntungan (Aktif)
-                    </h2>
-                    <div class="vacancy-table-container bg-gray-800 p-6 shadow-2xl">
-                        <table class="min-w-full text-left">
-                            <thead class="sticky top-0 bg-gray-900">
-                                <tr>
-                                    <th class="py-3 px-4 font-semibold text-lg color-secondary">Kekosongan</th>
-                                    <th class="py-3 px-4 font-semibold text-lg color-secondary">Potensi Keuntungan Bulanan Sehingga</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">4,000</td><td class="py-2 px-4">RM15</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">2,000</td><td class="py-2 px-4">RM31</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">1,000</td><td class="py-2 px-4">RM62</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">500</td><td class="py-2 px-4">RM124</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">250</td><td class="py-2 px-4">RM249</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">125</td><td class="py-2 px-4">RM499</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">64</td><td class="py-2 px-4">RM998</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">32</td><td class="py-2 px-4">RM1,996</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">16</td><td class="py-2 px-4">RM3,993</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">8</td><td class="py-2 px-4">RM7,967</td></tr>
-                                <tr class="border-b border-gray-700"><td class="py-2 px-4">4</td><td class="py-2 px-4">RM15,974</td></tr>
-                                <tr class="bg-red-900/50"><td class="py-2 px-4 text-red-400 font-bold">1</td><td class="py-2 px-4 text-red-400 font-bold">RM31,948 ❌ (PENUH)</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="mt-4 text-sm text-gray-400">* Kekosongan ini diisi dengan pantas. Bertindak segera!</p>
-                </div>
+            <div class="max-w-lg mx-auto bg-gray-900 text-white rounded-3xl shadow-2xl p-8 border-b-8 border-yellow-500">
+                <div class="text-center">
+                    <p class="text-4xl font-bold color-secondary mb-2">TDS35</p>
+                    <p class="text-2xl font-light mb-6">Pelan Utama Rakan Kongsi</p>
+                </div>
+                <ul class="space-y-4 text-lg">
+                    <li class="flex items-center justify-between py-2 border-b border-gray-700">
+                        <span class="flex items-center"><i class="fas fa-bolt mr-3 text-yellow-500"></i> Internet Semua Akses (Hi-Speed)</span>
+                        <span class="font-bold text-2xl">70GB</span>
+                    </li>
+                    <li class="flex items-center justify-between py-2 border-b border-gray-700">
+                        <span class="flex items-center"><i class="fas fa-hotspot mr-3 text-yellow-500"></i> Hotspot</span>
+                        <span class="font-bold text-2xl">5GB</span>
+                    </li>
+                    <li class="flex items-center justify-between py-2">
+                        <span class="flex items-center"><i class="fas fa-phone-volume mr-3 text-yellow-500"></i> Panggilan Suara</span>
+                        <span class="font-bold text-2xl text-green-400">UNLIMITED</span>
+                    </li>
+                </ul>
+                <a href="https://shopee.com.my/product/1375441/58101063481/" target="_blank" class="block mt-8 text-center bg-yellow-500 text-gray-900 font-bold py-3 rounded-xl hover:bg-yellow-600 transition duration-300">
+                    BELI SIM DI SHOPEE
+                </a>
+            </div>
+        </div>
+    </section>
 
-                <div>
-                    <h2 class="text-4xl font-extrabold mb-8 color-secondary">
-                        <i class="fas fa-handshake mr-2"></i> Sistem Sokongan Saya
-                    </h2>
-                    <div class="space-y-6 bg-gray-800 p-8 rounded-2xl shadow-2xl">
-                        <p class="text-lg text-gray-300">
-                            Saya akan bekalkan anda dengan semua yang diperlukan untuk berjaya:
-                        </p>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
-                                <span class="text-gray-200">Strategi Terbukti dan Rangkaian Bimbingan yang Tepat.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
-                                <span class="text-gray-200">Latihan 'Closing' Berkesan untuk mencapai sasaran penyertaan.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
-                                <span class="text-gray-200">Bimbingan berterusan untuk bantu anda capai 15,000 penyertaan dan kongsi keuntungan RM30,000!</span>
-                            </li>
-                        </ul>
-                        <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition duration-300 mt-4">
-                            SAYA MAHU BIMBINGAN!
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section class="py-16 md:py-24 color-primary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                                <div>
+                    <h2 class="text-4xl font-extrabold mb-8 color-secondary">
+                        <i class="fas fa-list-ol mr-2"></i> Senarai Kekosongan Keuntungan (Aktif)
+                    </h2>
+                    <div class="vacancy-table-container bg-gray-800 p-6 shadow-2xl">
+                        <table class="min-w-full text-left">
+                            <thead class="sticky top-0 bg-gray-900">
+                                <tr>
+                                    <th class="py-3 px-4 font-semibold text-lg color-secondary">Kekosongan</th>
+                                    <th class="py-3 px-4 font-semibold text-lg color-secondary">Potensi Keuntungan Bulanan Sehingga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">4,000</td><td class="py-2 px-4">RM15</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">2,000</td><td class="py-2 px-4">RM31</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">1,000</td><td class="py-2 px-4">RM62</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">500</td><td class="py-2 px-4">RM124</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">250</td><td class="py-2 px-4">RM249</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">125</td><td class="py-2 px-4">RM499</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">64</td><td class="py-2 px-4">RM998</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">32</td><td class="py-2 px-4">RM1,996</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">16</td><td class="py-2 px-4">RM3,993</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">8</td><td class="py-2 px-4">RM7,967</td></tr>
+                                <tr class="border-b border-gray-700"><td class="py-2 px-4">4</td><td class="py-2 px-4">RM15,974</td></tr>
+                                <tr class="bg-red-900/50"><td class="py-2 px-4 text-red-400 font-bold">1</td><td class="py-2 px-4 text-red-400 font-bold">RM31,948 ❌ (PENUH)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-400">* Kekosongan ini diisi dengan pantas. Bertindak segera!</p>
+                </div>
 
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-8 text-gray-900">
-                <i class="fas fa-chart-line mr-2"></i> Status Semasa Perkembangan Empayar
-            </h2>
-            <p class="text-center text-gray-600 mb-8">
-                Lihat sendiri perkembangan penyertaan dan kekosongan yang telah diisi secara langsung.
-            </p>
-            <div class="iframe-container">
-                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxRyBOfTpGIlemOfWhp6rdxGYZq7onqikA5CifLVpcQRqecBovjVtgxK7u352SSJV6McVZtSBiEaDS/pubhtml?gid=983145828&single=true" title="Status Perkembangan Empayar Wow Warrior"></iframe>
-            </div>
-        </div>
-    </section>
+                                <div>
+                    <h2 class="text-4xl font-extrabold mb-8 color-secondary">
+                        <i class="fas fa-handshake mr-2"></i> Sistem Sokongan Saya
+                    </h2>
+                    <div class="space-y-6 bg-gray-800 p-8 rounded-2xl shadow-2xl">
+                        <p class="text-lg text-gray-300">
+                            Saya akan bekalkan anda dengan semua yang diperlukan untuk berjaya:
+                        </p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
+                                <span class="text-gray-200">Strategi Terbukti dan Rangkaian Bimbingan yang Tepat.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
+                                <span class="text-gray-200">Latihan 'Closing' Berkesan untuk mencapai sasaran penyertaan.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle mt-1 mr-3 text-green-400 text-xl"></i>
+                                <span class="text-gray-200">Bimbingan berterusan untuk bantu anda capai 15,000 penyertaan dan kongsi keuntungan RM30,000!</span>
+                            </li>
+                        </ul>
+                        <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition duration-300 mt-4">
+                            SAYA MAHU BIMBINGAN!
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section class="py-20 color-primary text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl sm:text-5xl font-extrabold mb-4 color-secondary">
-                JANGAN TANGGUH LAGI!
-            </h2>
-            <p class="text-xl text-gray-300 mb-8">
-                Hubungi saya sekarang dan taip "KONGSI UNTUNG WARRIOR" untuk sesi penerangan bagaimana RM50 anda boleh menjana pendapatan pasif!
-            </p>
-            <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 px-10 text-xl rounded-full transition duration-300 transform hover:scale-105 shadow-2xl">
-                <i class="fas fa-bolt mr-2"></i> DAFTAR BORANG PENYERTAAN
-            </a>
-            <div class="mt-8 space-y-3">
-                <p class="text-gray-400">Atau hubungi kami melalui:</p>
-                <div class="flex justify-center space-x-6">
-                    <a href="https://t.me/+00OjnNe5MeFhYWI1" target="_blank" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center">
-                        <i class="fab fa-telegram-plane mr-2 text-2xl"></i> Telegram Group
-                    </a>
-                    <a href="https://www.tonewow.net/bm/earn-with-us/tone-wow-plus-lindung-pro" target="_blank" class="text-gray-300 hover:text-yellow-400 transition duration-300 flex items-center">
-                        <i class="fas fa-globe mr-2 text-2xl"></i> Laman Web Utama
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-8 text-gray-900">
+                <i class="fas fa-chart-line mr-2"></i> Status Semasa Perkembangan Empayar
+            </h2>
+            <p class="text-center text-gray-600 mb-8">
+                Lihat sendiri perkembangan penyertaan dan kekosongan yang telah diisi secara langsung.
+            </p>
+            <div class="iframe-container">
+                                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxRyBOfTpGIlemOfWhp6rdxGYZq7onqikA5CifLVpcQRqecBovjVtgxK7u352SSJV6McVZtSBiEaDS/pubhtml?gid=983145828&single=true" title="Status Perkembangan Empayar Wow Warrior"></iframe>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-gray-900/90 border-t border-gray-800 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <p class="text-sm mb-2">© 2025 WOW WARRIOR EMPAYAR. Hak Cipta Terpelihara.</p>
-            <div class="text-xs space-x-2">
-                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#WowWarriorEmpayar</span>
-                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#PerkongsianKeuntungan</span>
-                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#RM30KBulanan</span>
-                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#ToneWowPlus</span>
-            </div>
-        </div>
-    </footer>
+        <section class="py-20 color-primary text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl sm:text-5xl font-extrabold mb-4 color-secondary">
+                JANGAN TANGGUH LAGI!
+            </h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Hubungi saya sekarang dan taip "KONGSI UNTUNG WARRIOR" untuk sesi penerangan bagaimana RM50 anda boleh menjana pendapatan pasif!
+            </p>
+                        <a href="https://script.google.com/macros/s/AKfycbwmrsmhSPo72HbsITjAMr2pNIrVUpJpM4s9t5JJ1XalB7Wii1snuxcPSo6F2xg8k40/exec" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-4 px-10 text-xl rounded-full transition duration-300 transform hover:scale-105 shadow-2xl">
+                <i class="fas fa-bolt mr-2"></i> DAFTAR BORANG PENYERTAAN
+            </a>
+            <div class="mt-8 space-y-3">
+                <p class="text-gray-400">Atau hubungi kami melalui:</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://t.me/+00OjnNe5MeFhYWI1" target="_blank" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center">
+                        <i class="fab fa-telegram-plane mr-2 text-2xl"></i> Telegram Group
+                    </a>
+                    <a href="https://www.tonewow.net/bm/earn-with-us/tone-wow-plus-lindung-pro" target="_blank" class="text-gray-300 hover:text-yellow-400 transition duration-300 flex items-center">
+                        <i class="fas fa-globe mr-2 text-2xl"></i> Laman Web Utama
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <footer class="bg-gray-900/90 border-t border-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p class="text-sm mb-2">© 2025 WOW WARRIOR EMPAYAR. Hak Cipta Terpelihara.</p>
+            <div class="text-xs space-x-2">
+                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#WowWarriorEmpayar</span>
+                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#PerkongsianKeuntungan</span>
+                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#RM30KBulanan</span>
+                <span class="inline-block px-2 py-1 bg-gray-700/50 rounded-full">#ToneWowPlus</span>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
